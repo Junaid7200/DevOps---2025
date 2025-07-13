@@ -16,6 +16,11 @@ jobs:
     # 'ubuntu-latest' is a standard, reliable choice provided by GitHub.
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: read   # Grants permission to read the repository contents (checkout).
+      statuses: write  # Grants permission to write commit statuses (for the red X / green check).
+
+
     # A job is made up of a sequence of "steps".
     steps:
       # This is the first step. Its purpose is to get your code.
