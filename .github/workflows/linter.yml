@@ -17,8 +17,8 @@ jobs:
     runs-on: ubuntu-latest
 
     permissions:
-      contents: read   # Grants permission to read the repository contents (checkout).
-      statuses: write  # Grants permission to write commit statuses (for the red X / green check).
+      contents: read      # to checkout code
+      statuses: write     # to write commit status checks
 
 
     # A job is made up of a sequence of "steps".
