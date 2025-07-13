@@ -1,0 +1,13 @@
+services:
+  web:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - ./src:/usr/share/nginx/html
+    networks:
+      - nginx-network
+
+networks:
+  nginx-network:
+    driver: bridge
