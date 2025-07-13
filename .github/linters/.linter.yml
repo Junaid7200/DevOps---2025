@@ -1,2 +1,1 @@
-FILTER_REGEX_EXCLUDE: *\.ipynb$
-FILTER_REGEX_EXCLUDE: *\.md$
+FILTER_REGEX_EXCLUDE: '(\.ipynb|\.md)$'
