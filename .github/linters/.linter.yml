@@ -1,2 +1,3 @@
-FILTER_REGEX_EXCLUDE: '(\.ipynb|\.md|\.sh)$'
+FILTER_REGEX_EXCLUDE: '(\.ipynb|\.md|\.sh|.yml)$'
 SHELL_SHFMT_DISABLE: true
+VALIDATE_MARKDOWN: false
