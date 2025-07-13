@@ -1,0 +1,37 @@
+# This name will appear in the "Actions" tab of your GitHub repository.
+name: Code Linter
+
+# This section defines what event will trigger the workflow to run.
+on: 
+  # 'push' means this workflow will run every time you 'git push' to any branch.
+  push:
+
+# Workflows are made of one or more "jobs" that can run in parallel or sequence.
+jobs:
+  # This is the unique ID for our single job. We'll call it 'lint-code'.
+  lint-code:
+    # This is the display name for the job on GitHub.
+    name: Run Linter
+    # This specifies the type of virtual machine to run the job on. 
+    # 'ubuntu-latest' is a standard, reliable choice provided by GitHub.
+    runs-on: ubuntu-latest
+
+    # A job is made up of a sequence of "steps".
+    steps:
+      # This is the first step. Its purpose is to get your code.
+      - name: Checkout Code
+        # 'uses' tells the job to run a pre-built action. 
+        # 'actions/checkout@v4' is the official action to download your repository's code into the runner.
+        uses: actions/checkout@v4
+
+      # This is the second step. It will run the linter on the code we just checked out.
+      - name: Run Super-Linter
+        # This uses the official Super-Linter action from GitHub.
+        uses: github/super-linter@v6
+        # 'env' is used to set environment variables that configure the action.
+        env:
+          # This variable tells Super-Linter to check every file in your project.
+          VALIDATE_ALL_CODEBASE: true
+          # This provides a secure, temporary token that the linter uses to post its status 
+          # (the green check or red X) back to your commit on GitHub. It's required for the action to work correctly.
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
