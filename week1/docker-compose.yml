@@ -7,7 +7,6 @@ services:
       - ./src:/usr/share/nginx/html
     networks:
       - nginx-network
-
 networks:
   nginx-network:
     driver: bridge

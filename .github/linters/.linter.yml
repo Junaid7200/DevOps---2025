@@ -1,1 +1,2 @@
 FILTER_REGEX_EXCLUDE: '(\.ipynb|\.md)$'
+SHELL_SHFMT_DISABLE: true
