@@ -1,6 +1,6 @@
-# make an html, css, and js file, and put the html boiler plate in there too
-
 #!/bin/bash
+
+# make an html, css, and js file, and put the html boiler plate in there too
 
 mkdir sample_project
 
