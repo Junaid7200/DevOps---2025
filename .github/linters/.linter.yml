@@ -1,3 +1,14 @@
-FILTER_REGEX_EXCLUDE: '(\.ipynb|\.md|\.sh|.yml)$'
+---
+# .linter.yml
+# This is the configuration file for Super-Linter
+
+# We want to lint YAML files, but we need to tell the linter to ignore line length.
+YAML_YAMLLINT_RULES: |
+  rules:
+    line-length: disable
+
+# We want to lint Shell scripts, but disable the strict 'shfmt' formatter.
 SHELL_SHFMT_DISABLE: true
-VALIDATE_SHELL_SHFMT: false
+
+# We want to completely ignore Jupyter Notebooks and Markdown files.
+FILTER_REGEX_EXCLUDE: '(\.ipynb|\.md)$'
