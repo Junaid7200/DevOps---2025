@@ -1,0 +1,38 @@
+# This is the Deployment for the React frontend.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+      - name: frontend
+        # IMPORTANT: Replace 'your-dockerhub-username/frontend' with your actual image name
+        image: Junaid7200/frontend:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 5173
+
+---
+# This is the Service for the frontend. It exposes the app outside the cluster.
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-service
+spec:
+  selector:
+    app: frontend
+  ports:
+    - protocol: TCP
+      port: 5173
+      targetPort: 5173
+  type: LoadBalancer # This type exposes the service externally using a cloud provider's load balancer.
+                      # In Docker Desktop, it will expose the service on localhost.

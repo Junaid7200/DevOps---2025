@@ -1,0 +1,80 @@
+# This section defines a Secret to hold sensitive data like the database password.
+# It's more secure than putting passwords directly in the configuration files.
+apiVersion: v1
+kind: Secret
+metadata:
+  name: db-secret
+type: Opaque
+stringData:
+  POSTGRES_PASSWORD: "postgres" # Using the password from your docker-compose file
+
+---
+# This is a PersistentVolumeClaim (PVC). It requests storage from Kubernetes
+# for our database. This ensures that data is not lost if the database pod restarts.
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: db-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce # This volume can be mounted as read-write by a single node
+  resources:
+    requests:
+      storage: 1Gi # Requesting 1 Gibibyte of storage
+
+---
+# This section defines the Deployment for our PostgreSQL database.
+# A Deployment manages the state of your application, ensuring a specified
+# number of pods are always running.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: db-deployment
+spec:
+  replicas: 1 # We only need one instance of our database
+  selector:
+    matchLabels:
+      app: db # This label is used by the Service to find the right pods
+  template:
+    metadata:
+      labels:
+        app: db
+    spec:
+      containers:
+      - name: postgres
+        image: postgres:latest # Using the official PostgreSQL image
+        ports:
+        - containerPort: 5432 # The port the database listens on inside the container
+        env:
+          - name: POSTGRES_USER
+            value: "postgres"
+          - name: POSTGRES_DB
+            value: "postgres"
+          - name: POSTGRES_PASSWORD
+            valueFrom: # Get the password from the Secret we created above
+              secretKeyRef:
+                name: db-secret
+                key: POSTGRES_PASSWORD
+        volumeMounts:
+          - name: db-storage
+            mountPath: /var/lib/postgresql/data # Mount the persistent volume to the data directory
+      volumes:
+        - name: db-storage
+          persistentVolumeClaim:
+            claimName: db-pvc # Use the PVC we defined earlier
+
+---
+# This defines a Service for the database. A Service provides a stable network
+# endpoint (IP address and DNS name) to access the database pods.
+apiVersion: v1
+kind: Service
+metadata:
+  name: db-service # The backend will use this name to connect to the database
+spec:
+  selector:
+    app: db # Selects pods with the label 'app: db'
+  ports:
+    - protocol: TCP
+      port: 5432 # The port the service will be available on within the cluster
+      targetPort: 5432 # The port on the pod to forward traffic to
+  type: ClusterIP # Exposes the service only within the cluster

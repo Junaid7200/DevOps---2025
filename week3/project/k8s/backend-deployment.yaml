@@ -1,0 +1,49 @@
+# This is the Deployment for the Django backend.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+      - name: backend
+        # IMPORTANT: Replace 'your-dockerhub-username/backend' with your actual image name
+        image: Junaid7200/backend:latest 
+        imagePullPolicy: Always # Ensures the latest image is pulled
+        ports:
+        - containerPort: 8000
+        env:
+          - name: DB_HOST
+            value: "db-service" # The DNS name of our database service
+          - name: DB_NAME
+            value: "postgres"
+          - name: DB_USER
+            value: "postgres"
+          - name: DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: db-secret
+                key: POSTGRES_PASSWORD
+
+---
+# This is the Service for the backend. It exposes the backend to the frontend.
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-service
+spec:
+  selector:
+    app: backend
+  ports:
+    - protocol: TCP
+      port: 8000
+      targetPort: 8000
+  type: ClusterIP # Only expose within the cluster for now
