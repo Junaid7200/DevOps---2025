@@ -13,3 +13,7 @@ services:
     image: junaid7200/my-docker-app:latest
     ports:
       - "3000:3000"
+  node-exporter:
+    image: prom/node-exporter
+    ports:
+      - "9100:9100"
