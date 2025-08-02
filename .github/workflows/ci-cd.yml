@@ -25,10 +25,10 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build Docker image
-        run: docker build -t junaid467/my-docker-app:${{ github.sha }} ./week5/dockerized_app
+        run: docker build -t junaid7200/my-docker-app:${{ github.sha }} ./week5/dockerized_app
 
       - name: Run Docker container
-        run: docker run -d -p 3000:3000 junaid467/my-docker-app:${{ github.sha }}
+        run: docker run -d -p 3000:3000 junaid7200/my-docker-app:${{ github.sha }}
 
       - name: Test Docker container
         run: |
@@ -36,4 +36,4 @@ jobs:
           curl -f http://localhost:3000 || exit 1
 
       - name: Push Docker image to Docker Hub
-        run: docker push junaid467/my-docker-app:${{ github.sha }}
+        run: docker push junaid7200/my-docker-app:${{ github.sha }}
