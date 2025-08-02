@@ -1,0 +1,84 @@
+.App {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.student-form {
+  background: #796b87;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.student-form div {
+  margin-bottom: 15px;
+}
+
+.student-form label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.student-form input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.student-form button {
+  padding: 10px 20px;
+  margin-right: 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.student-form button[type="submit"] {
+  background: #007bff;
+  color: white;
+}
+
+.student-form button[type="button"] {
+  background: #6c757d;
+  color: white;
+}
+
+.student-list table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.student-list th,
+.student-list td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.student-list th {
+  background-color: #796b87;
+  font-weight: bold;
+}
+
+.student-list button {
+  padding: 5px 10px;
+  margin-right: 5px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.student-list button:first-child {
+  background: #28a745;
+  color: white;
+}
+
+.student-list button:last-child {
+  background: #dc3545;
+  color: white;
+}
