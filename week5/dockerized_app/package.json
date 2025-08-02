@@ -1,0 +1,7 @@
+{
+  "name": "dockerized-app",
+  "version": "1.0.0",
+  "dependencies": {
+    "prometheus-api-metrics": "^0.14.0"
+  }
+}
